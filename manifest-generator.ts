@@ -11,6 +11,7 @@ const manifestRankLevelSchema = z.object({
 const manifestNodeSchema = z.object({
   id: z.string(),
   name: z.string(),
+  practaSlug: z.string().nullable(),
   lifecycleState: z.string(),
   displayOrder: z.number(),
   costBundle: z.record(z.unknown()),
@@ -78,6 +79,7 @@ export interface SnapshotRankLevel {
 export interface SnapshotNode {
   id: string;
   name: string;
+  practaSlug: string | null;
   lifecycleState: string;
   displayOrder: number;
   costBundle: Record<string, unknown> | null;
@@ -157,6 +159,7 @@ export function generateManifestArtifact(snapshot: ProgramSnapshot): ManifestArt
             nodes: branch.nodes.map(n => ({
               id: n.id,
               name: n.name,
+              practaSlug: n.practaSlug ?? null,
               lifecycleState: n.lifecycleState,
               displayOrder: n.displayOrder,
               costBundle: n.costBundle ?? {},
